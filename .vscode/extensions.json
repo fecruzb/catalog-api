@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "oderwat.indent-rainbow",
+    "dbaeumer.vscode-eslint",
+    "mutantdino.resourcemonitor",
+    "eamodio.gitlens",
+    "aaron-bond.better-comments",
+    "mgmcdermott.vscode-language-babel",
+    "byi8220.indented-block-highlighting",
+    "PKief.material-icon-theme",
+    "foxundermoon.shell-format",
+  ]
+}

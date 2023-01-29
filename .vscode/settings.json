@@ -1,0 +1,54 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#061925",
+    "activityBar.foreground": "#3b8b74",
+    "activityBar.inactiveForeground": "#3D4C55",
+    "titleBar.activeBackground": "#3b8b74",
+    "titleBar.activeForeground": "#000000",
+
+    "terminal.tab.activeBorder": "#3b8b74",
+    "statusBar.background": "#3b8b74",
+    "panelTitle.activeForeground": "#3b8b74"
+  },
+  "material-icon-theme.activeIconPack": "react",
+  "workbench.startupEditor": "readme",
+  "workbench.iconTheme": "material-icon-theme",
+
+
+  "task.allowAutomaticTasks": "on",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+
+  "json.format.keepLines": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.debug": true,
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+  "editor.tabSize": 2,
+  "editor.fontSize": 12,
+  "editor.lineHeight": 18,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.wordWrap": "off",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.minimap.renderCharacters": true,
+  "editor.renderControlCharacters": true,
+
+  "gitlens.showWelcomeOnInstall": false,
+
+  "files.exclude": {
+    "node_modules": true,
+    ".cache": true,
+    "coverage": true
+  },
+}
