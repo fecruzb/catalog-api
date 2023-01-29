@@ -2,8 +2,8 @@ const Sequelize = require("sequelize")
 
 const db = new Sequelize("sqlite:./db.sqlite")
 
-const AuthorModel = require("./model/Author")
-const BookModel = require("./model/Book")
+const AuthorModel = require("../model/Author")
+const BookModel = require("../model/Book")
 
 const Author = AuthorModel(db)
 const Book = BookModel(db)

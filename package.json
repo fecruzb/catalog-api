@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server",
-    "db:sync": "node src/sync",
+    "start": "node src/index",
+    "db:sync": "node src/db/sync",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
