@@ -24,20 +24,21 @@ const cors = corsMiddleware({
 /* middleware */
 server.pre(cors.preflight)
 server.use(cors.actual)
+server.use(restify.bodyParser())
 
 /* author endpoints */
 server.post("/authors", AuthorCreate)
 server.get("/authors", AuthorList)
 server.get("/authors/:id", AuthorRead)
 server.del("/authors/:id", AuthorDelete)
-server.patch("/authors/:id", AuthorUpdate)
+server.put("/authors/:id", AuthorUpdate)
 
 /* books endpoints */
 server.post("/books", BookCreate)
 server.get("/books", BookList)
 server.get("/books/:id", BookRead)
 server.del("/books/:id", BookDelete)
-server.patch("/books/:id", BookUpdate)
+server.put("/books/:id", BookUpdate)
 
 /* start server */
 server.listen(4000, () => {
