@@ -1,0 +1,778 @@
+[
+  {
+    "name": "William Shakespeare",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Romeo and Juliet",
+        "year": 1597
+      },
+      {
+        "title": "Hamlet",
+        "year": 1600
+      },
+      {
+        "title": "Macbeth",
+        "year": 1606
+      }
+    ]
+  },
+  {
+    "name": "Jane Austen",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Pride and Prejudice",
+        "year": 1813
+      },
+      {
+        "title": "Sense and Sensibility",
+        "year": 1811
+      },
+      {
+        "title": "Emma",
+        "year": 1815
+      }
+    ]
+  },
+  {
+    "name": "Charles Dickens",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Great Expectations",
+        "year": 1861
+      },
+      {
+        "title": "A Tale of Two Cities",
+        "year": 1859
+      },
+      {
+        "title": "Oliver Twist",
+        "year": 1837
+      }
+    ]
+  },
+  {
+    "name": "Fyodor Dostoevsky",
+    "country": "RU",
+    "books": [
+      {
+        "title": "Crime and Punishment",
+        "year": 1866
+      },
+      {
+        "title": "The Brothers Karamazov",
+        "year": 1880
+      },
+      {
+        "title": "Notes from Underground",
+        "year": 1864
+      }
+    ]
+  },
+  {
+    "name": "Leo Tolstoy",
+    "country": "RU",
+    "books": [
+      {
+        "title": "War and Peace",
+        "year": 1869
+      },
+      {
+        "title": "Anna Karenina",
+        "year": 1877
+      },
+      {
+        "title": "The Death of Ivan Ilyich",
+        "year": 1886
+      }
+    ]
+  },
+  {
+    "name": "Herman Melville",
+    "country": "US",
+    "books": [
+      {
+        "title": "Bartleby, the Scrivener",
+        "year": 1853
+      },
+      {
+        "title": "Billy Budd",
+        "year": 1924
+      }
+    ]
+  },
+  {
+    "name": "Mark Twain",
+    "country": "US",
+    "books": [
+      {
+        "title": "Adventures of Huckleberry Finn",
+        "year": 1884
+      },
+      {
+        "title": "The Adventures of Tom Sawyer",
+        "year": 1876
+      },
+      {
+        "title": "The Prince and the Pauper",
+        "year": 1881
+      }
+    ]
+  },
+  {
+    "name": "Charlotte Brontë",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Jane Eyre",
+        "year": 1847
+      },
+      {
+        "title": "Shirley",
+        "year": 1849
+      },
+      {
+        "title": "Villette",
+        "year": 1853
+      }
+    ]
+  },
+  {
+    "name": "Emily Brontë",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Wuthering Heights",
+        "year": 1847
+      }
+    ]
+  },
+  {
+    "name": "Victor Hugo",
+    "country": "FR",
+    "books": [
+      {
+        "title": "Les Misérables",
+        "year": 1862
+      },
+      {
+        "title": "The Hunchback of Notre-Dame",
+        "year": 1831
+      },
+      {
+        "title": "Ninety-Three",
+        "year": 1874
+      }
+    ]
+  },
+  {
+    "name": "Oscar Wilde",
+    "country": "IE",
+    "books": [
+      {
+        "title": "The Picture of Dorian Gray",
+        "year": 1890
+      },
+      {
+        "title": "The Importance of Being Earnest",
+        "year": 1895
+      },
+      {
+        "title": "Lady Windermere's Fan",
+        "year": 1892
+      }
+    ]
+  },
+  {
+    "name": "Miguel de Cervantes Saavedra",
+    "country": "ES",
+    "books": [
+      {
+        "title": "Don Quixote",
+        "year": 1605
+      }
+    ]
+  },
+  {
+    "name": "Homer",
+    "country": "GR",
+    "books": [
+      {
+        "title": "The Iliad",
+        "year": 800
+      },
+      {
+        "title": "The Odyssey",
+        "year": 800
+      }
+    ]
+  },
+  {
+    "name": "Edgar Allan Poe",
+    "country": "US",
+    "books": [
+      {
+        "title": "The Raven",
+        "year": 1845
+      },
+      {
+        "title": "The Fall of the House of Usher",
+        "year": 1839
+      },
+      {
+        "title": "The Tell-Tale Heart",
+        "year": 1843
+      }
+    ]
+  },
+  {
+    "name": "Franz Kafka",
+    "country": "CZ",
+    "books": [
+      {
+        "title": "The Trial",
+        "year": 1925
+      },
+      {
+        "title": "The Metamorphosis",
+        "year": 1915
+      },
+      {
+        "title": "The Castle",
+        "year": 1926
+      }
+    ]
+  },
+  {
+    "name": "Voltaire",
+    "country": "FR",
+    "books": [
+      {
+        "title": "Candide",
+        "year": 1759
+      },
+      {
+        "title": "Zadig",
+        "year": 1748
+      },
+      {
+        "title": "Micromégas",
+        "year": 1752
+      }
+    ]
+  },
+  {
+    "name": "George Orwell",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Nineteen Eighty-Four",
+        "year": 1949
+      },
+      {
+        "title": "Animal Farm",
+        "year": 1945
+      },
+      {
+        "title": "Down and Out in Paris and London",
+        "year": 1933
+      }
+    ]
+  },
+  {
+    "name": "Johann Wolfgang von Goethe",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Faust",
+        "year": 1832
+      },
+      {
+        "title": "The Sorrows of Young Werther",
+        "year": 1774
+      }
+    ]
+  },
+  {
+    "name": "Herman Hesse",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Siddhartha",
+        "year": 1922
+      },
+      {
+        "title": "Steppenwolf",
+        "year": 1927
+      }
+    ]
+  },
+  {
+    "name": "J.R.R. Tolkien",
+    "country": "GB",
+    "books": [
+      {
+        "title": "The Lord of the Rings",
+        "year": 1954
+      },
+      {
+        "title": "The Hobbit",
+        "year": 1937
+      },
+      {
+        "title": "The Silmarillion",
+        "year": 1977
+      }
+    ]
+  },
+  {
+    "name": "Isaac Asimov",
+    "country": "US",
+    "books": [
+      {
+        "title": "Foundation",
+        "year": 1951
+      },
+      {
+        "title": "I, Robot",
+        "year": 1950
+      },
+      {
+        "title": "The Caves of Steel",
+        "year": 1954
+      }
+    ]
+  },
+  {
+    "name": "Arthur C. Clarke",
+    "country": "GB",
+    "books": [
+      {
+        "title": "2001: A Space Odyssey",
+        "year": 1968
+      },
+      {
+        "title": "Rendezvous with Rama",
+        "year": 1973
+      },
+      {
+        "title": "Childhood's End",
+        "year": 1953
+      }
+    ]
+  },
+  {
+    "name": "Bernard Cornwell",
+    "country": "GB",
+    "books": [
+      {
+        "title": "The Last Kingdom",
+        "year": 2004
+      },
+      {
+        "title": "Sharpe's Eagle",
+        "year": 1981
+      },
+      {
+        "title": "Azincourt",
+        "year": 2008
+      }
+    ]
+  },
+  {
+    "name": "Plato",
+    "country": "GR",
+    "books": [
+      {
+        "title": "The Republic",
+        "year": -380
+      },
+      {
+        "title": "Phaedrus",
+        "year": -370
+      },
+      {
+        "title": "Symposium",
+        "year": -385
+      }
+    ]
+  },
+  {
+    "name": "Friedrich Nietzsche",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Thus Spoke Zarathustra",
+        "year": 1883
+      },
+      {
+        "title": "Beyond Good and Evil",
+        "year": 1886
+      },
+      {
+        "title": "On the Genealogy of Morality",
+        "year": 1887
+      }
+    ]
+  },
+  {
+    "name": "Stephenie Meyer",
+    "country": "US",
+    "books": [
+      {
+        "title": "Twilight",
+        "year": 2005
+      },
+      {
+        "title": "New Moon",
+        "year": 2006
+      },
+      {
+        "title": "Eclipse",
+        "year": 2007
+      }
+    ]
+  },
+  {
+    "name": "Agatha Christie",
+    "country": "GB",
+    "books": [
+      {
+        "title": "And Then There Were None",
+        "year": 1939
+      }
+    ]
+  },
+  {
+    "name": "Gabriel Garcia Marquez",
+    "country": "CO",
+    "books": [
+      {
+        "title": "One Hundred Years of Solitude",
+        "year": 1967
+      },
+      {
+        "title": "Love in the Time of Cholera",
+        "year": 1985
+      },
+      {
+        "title": "Chronicle of a Death Foretold",
+        "year": 1981
+      }
+    ]
+  },
+  {
+    "name": "Haruki Murakami",
+    "country": "JP",
+    "books": [
+      {
+        "title": "Norwegian Wood",
+        "year": 1987
+      },
+      {
+        "title": "Kafka on the Shore",
+        "year": 2002
+      },
+      {
+        "title": "The Wind-Up Bird Chronicle",
+        "year": 1994
+      }
+    ]
+  },
+  {
+    "name": "Virginia Woolf",
+    "country": "GB",
+    "books": [
+      {
+        "title": "To the Lighthouse",
+        "year": 1927
+      },
+      {
+        "title": "Mrs Dalloway",
+        "year": 1925
+      },
+      {
+        "title": "Orlando",
+        "year": 1928
+      }
+    ]
+  },
+  {
+    "name": "Albert Camus",
+    "country": "FR",
+    "books": [
+      {
+        "title": "The Stranger",
+        "year": 1942
+      },
+      {
+        "title": "The Plague",
+        "year": 1947
+      },
+      {
+        "title": "The Fall",
+        "year": 1956
+      }
+    ]
+  },
+  {
+    "name": "Dante Alighieri",
+    "country": "IT",
+    "books": [
+      {
+        "title": "Divine Comedy",
+        "year": 1320
+      }
+    ]
+  },
+  {
+    "name": "Molière",
+    "country": "FR",
+    "books": [
+      {
+        "title": "Tartuffe",
+        "year": 1664
+      },
+      {
+        "title": "The Misanthrope",
+        "year": 1666
+      },
+      {
+        "title": "The School for Wives",
+        "year": 1662
+      }
+    ]
+  },
+  {
+    "name": "Aristotle",
+    "country": "GR",
+    "books": [
+      {
+        "title": "Nicomachean Ethics",
+        "year": -350
+      },
+      {
+        "title": "Politics",
+        "year": -350
+      },
+      {
+        "title": "Poetics",
+        "year": -335
+      }
+    ]
+  },
+  {
+    "name": "René Descartes",
+    "country": "FR",
+    "books": [
+      {
+        "title": "Meditations on First Philosophy",
+        "year": 1641
+      },
+      {
+        "title": "Discourse on the Method",
+        "year": 1637
+      }
+    ]
+  },
+  {
+    "name": "Immanuel Kant",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Critique of Pure Reason",
+        "year": 1781
+      },
+      {
+        "title": "Groundwork of the Metaphysics of Morals",
+        "year": 1785
+      },
+      {
+        "title": "Critique of Practical Reason",
+        "year": 1788
+      }
+    ]
+  },
+  {
+    "name": "John Locke",
+    "country": "GB",
+    "books": [
+      {
+        "title": "An Essay Concerning Human Understanding",
+        "year": 1689
+      },
+      {
+        "title": "Two Treatises of Government",
+        "year": 1689
+      },
+      {
+        "title": "Some Thoughts Concerning Education",
+        "year": 1693
+      }
+    ]
+  },
+  {
+    "name": "David Hume",
+    "country": "GB",
+    "books": [
+      {
+        "title": "A Treatise of Human Nature",
+        "year": 1739
+      },
+      {
+        "title": "An Enquiry Concerning Human Understanding",
+        "year": 1748
+      },
+      {
+        "title": "Dialogues Concerning Natural Religion",
+        "year": 1779
+      }
+    ]
+  },
+  {
+    "name": "Friedrich Nietzsche",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Thus Spoke Zarathustra",
+        "year": 1883
+      },
+      {
+        "title": "Beyond Good and Evil",
+        "year": 1886
+      },
+      {
+        "title": "On the Genealogy of Morality",
+        "year": 1887
+      }
+    ]
+  },
+  {
+    "name": "Jean-Jacques Rousseau",
+    "country": "FR",
+    "books": [
+      {
+        "title": "The Social Contract",
+        "year": 1762
+      },
+      {
+        "title": "Discourse on Inequality",
+        "year": 1754
+      },
+      {
+        "title": "Emile, or On Education",
+        "year": 1762
+      }
+    ]
+  },
+  {
+    "name": "Thomas Hobbes",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Leviathan",
+        "year": 1651
+      },
+      {
+        "title": "De Cive",
+        "year": 1642
+      },
+      {
+        "title": "Behemoth",
+        "year": 1668
+      }
+    ]
+  },
+  {
+    "name": "Baruch Spinoza",
+    "country": "NL",
+    "books": [
+      {
+        "title": "Ethics",
+        "year": 1677
+      },
+      {
+        "title": "Theological-Political Treatise",
+        "year": 1670
+      },
+      {
+        "title": "Tractatus Theologico-Politicus",
+        "year": 1670
+      }
+    ]
+  },
+  {
+    "name": "John Stuart Mill",
+    "country": "GB",
+    "books": [
+      {
+        "title": "Utilitarianism",
+        "year": 1863
+      },
+      {
+        "title": "On Liberty",
+        "year": 1859
+      },
+      {
+        "title": "A System of Logic",
+        "year": 1843
+      }
+    ]
+  },
+  {
+    "name": "Karl Marx",
+    "country": "DE",
+    "books": [
+      {
+        "title": "The Communist Manifesto",
+        "year": 1848
+      },
+      {
+        "title": "Capital, Volume I",
+        "year": 1867
+      },
+      {
+        "title": "The German Ideology",
+        "year": 1845
+      }
+    ]
+  },
+  {
+    "name": "Arthur Schopenhauer",
+    "country": "DE",
+    "books": [
+      {
+        "title": "The World as Will and Representation",
+        "year": 1818
+      },
+      {
+        "title": "On the Fourfold Root of the Principle of Sufficient Reason",
+        "year": 1813
+      },
+      {
+        "title": "Studies in Pessimism",
+        "year": 1851
+      }
+    ]
+  },
+  {
+    "name": "Gottfried Wilhelm Leibniz",
+    "country": "DE",
+    "books": [
+      {
+        "title": "Monadology",
+        "year": 1714
+      },
+      {
+        "title": "Discourse on Metaphysics",
+        "year": 1686
+      },
+      {
+        "title": "Theodicy",
+        "year": 1710
+      }
+    ]
+  }
+]

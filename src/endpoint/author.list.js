@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
         {
           model: Book,
           as: "books",
-          attributes: ["id", "title"],
         },
       ],
     })

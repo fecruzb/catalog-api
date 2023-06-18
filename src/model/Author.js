@@ -8,6 +8,7 @@ module.exports = (db) => {
       autoIncrement: true,
     },
     name: Sequelize.STRING,
+    slug: Sequelize.STRING,
     country: Sequelize.STRING,
   })
 

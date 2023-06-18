@@ -1,5 +1,9 @@
 const restify = require("restify")
-const corsMiddleware = require("restify-cors-middleware")
+const corsMiddleware = require("restify-cors-middleware2")
+const path = require("path")
+
+const GPTImage = require("./endpoint/gpt.image")
+const GPTPrompt = require("./endpoint/gpt.prompt")
 
 const AuthorCreate = require("./endpoint/author.create")
 const AuthorList = require("./endpoint/author.list")
@@ -24,7 +28,17 @@ const cors = corsMiddleware({
 /* middleware */
 server.pre(cors.preflight)
 server.use(cors.actual)
-server.use(restify.bodyParser())
+
+server.use(restify.plugins.acceptParser(server.acceptable))
+server.use(restify.plugins.queryParser())
+server.use(restify.plugins.bodyParser())
+
+/* static images */
+server.get("/public/*", restify.plugins.serveStaticFiles(path.join(__dirname, "../public")))
+
+/* gpt endpoints */
+server.get("/gpt/image", GPTImage)
+server.get("/gpt/prompt", GPTPrompt)
 
 /* author endpoints */
 server.post("/authors", AuthorCreate)

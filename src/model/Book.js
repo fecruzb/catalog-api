@@ -7,6 +7,7 @@ module.exports = (db) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    slug: Sequelize.STRING,
     title: Sequelize.STRING,
     year: Sequelize.INTEGER,
     ISBN: Sequelize.STRING,
