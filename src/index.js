@@ -19,10 +19,8 @@ const BookUpdate = require("./endpoint/book.update")
 const server = restify.createServer()
 
 const cors = corsMiddleware({
-  preflightMaxAge: 5, //Optional
+  preflightMaxAge: 5,
   origins: ["*"],
-  allowHeaders: ["API-Token"],
-  exposeHeaders: ["API-Token-Expiry"],
 })
 
 /* middleware */
@@ -55,6 +53,6 @@ server.del("/books/:id", BookDelete)
 server.put("/books/:id", BookUpdate)
 
 /* start server */
-server.listen(4000, () => {
-  console.log("Server listening on port 4000")
+server.listen(process.env.PORT || 4000, () => {
+  console.log(`Server listening on port ${process.env.PORT || 4000}`)
 })
