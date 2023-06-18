@@ -1,4 +1,4 @@
-const gpt = require("../../gpt/api")
+const gpt = require("../library/gpt")
 
 module.exports = async (req, res) => {
   const { prompt } = req.query

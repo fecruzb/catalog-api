@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 
-const db = new Sequelize("sqlite:./db.sqlite")
+const db = new Sequelize("sqlite:./src/db/db.sqlite")
 
 const AuthorModel = require("../model/Author")
 const BookModel = require("../model/Book")

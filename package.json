@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index",
-    "db:sync": "node src/db/sync",
-    "db:populate": "node src/db/populate.js",
-    "db:image": "node src/db/image.js",
+    "db:sync": "node src/script/sync",
+    "db:populate": "node src/script/populate.js",
+    "db:image": "node src/script/image.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },

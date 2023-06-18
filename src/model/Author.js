@@ -10,6 +10,7 @@ module.exports = (db) => {
     name: Sequelize.STRING,
     slug: Sequelize.STRING,
     country: Sequelize.STRING,
+    biography: Sequelize.TEXT,
   })
 
   return Author

@@ -11,6 +11,7 @@ module.exports = (db) => {
     title: Sequelize.STRING,
     year: Sequelize.INTEGER,
     ISBN: Sequelize.STRING,
+    resume: Sequelize.TEXT,
   })
   return Book
 }

@@ -1,4 +1,4 @@
-const gpt = require("../../gpt/api")
+const gpt = require("../library/gpt")
 const sharp = require("sharp")
 
 module.exports = async (req, res) => {
