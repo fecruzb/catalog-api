@@ -1,15 +1,10 @@
-const { Author } = require("../db")
+const Author = require("../module/author")
 
 module.exports = async (req, res) => {
-  const { name, country } = req.body
+  const { name, country, biography } = req.body
   try {
-    const author = await Author.findByPk(req.params.id)
-    if (!author) {
-      res.send(404, "Author not found")
-    } else {
-      await author.update({ name, country })
-      res.send(200, author)
-    }
+    const author = await Author.updateById(req.params.id, { name, country, biography })
+    res.send(200, author)
   } catch (error) {
     res.send(500, error)
   }

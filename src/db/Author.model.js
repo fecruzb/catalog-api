@@ -1,17 +1,18 @@
 const Sequelize = require("sequelize")
 
 module.exports = (db) => {
-  const Book = db.define("book", {
+  const Author = db.define("author", {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
+    name: Sequelize.STRING,
     slug: Sequelize.STRING,
-    title: Sequelize.STRING,
-    year: Sequelize.INTEGER,
-    ISBN: Sequelize.STRING,
-    resume: Sequelize.TEXT,
+    country: Sequelize.STRING,
+    biography: Sequelize.TEXT,
+    photo_description: Sequelize.TEXT,
   })
-  return Book
+
+  return Author
 }

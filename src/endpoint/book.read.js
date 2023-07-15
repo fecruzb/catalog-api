@@ -1,15 +1,8 @@
-const { Book, Author } = require("../db")
+const Book = require("../module/book")
 
 module.exports = async (req, res) => {
   try {
-    const book = await Book.findByPk(req.params.id, {
-      include: [
-        {
-          model: Author,
-          as: "author",
-        },
-      ],
-    })
+    const book = await Book.readById(req.params.id)
     if (!book) {
       res.send(404, "Book not found")
     } else {

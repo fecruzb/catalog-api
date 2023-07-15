@@ -1,15 +1,8 @@
-const { Book, Author } = require("../db")
+const Book = require("../module/book")
 
 module.exports = async (req, res) => {
   try {
-    const books = await Book.findAll({
-      include: [
-        {
-          model: Author,
-          as: "author",
-        },
-      ],
-    })
+    const books = await Book.list()
     res.send(books)
   } catch (error) {
     res.send(500, error)

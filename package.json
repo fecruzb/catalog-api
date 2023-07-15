@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "node src/script/sync",
     "start": "node src/index",
     "db:sync": "node src/script/sync",
     "db:populate": "node src/script/populate.js",

@@ -1,14 +1,9 @@
-const { Author } = require("../db")
+const Author = require("../module/author")
 
 module.exports = async (req, res) => {
   try {
-    const author = await Author.findByPk(req.params.id)
-    if (!author) {
-      res.send(404, "Author not found")
-    } else {
-      await author.destroy()
-      res.send(204)
-    }
+    const author = await Author.deleteById(req.params.id)
+    res.send(204, author)
   } catch (error) {
     res.send(500, error)
   }
