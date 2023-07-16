@@ -33,9 +33,7 @@ const prompter = () => {
  */
 const promptByTitle = async (title, authorName) => {
   const prompt = `About the following book "${title}" by author "${authorName}", \nPlease provide a single JSON object in the following format:\n ${prompter()}`
-  console.log("Prompting book metadata...")
   const response = await gpt.chat(prompt)
-  console.log("Book metadata received:", response)
   return JSON.parse(response)
 }
 
@@ -46,15 +44,8 @@ const promptByTitle = async (title, authorName) => {
  * @returns {Promise<object>} - A promise that resolves to the book's metadata.
  */
 const generateImage = async (name, prompt) => {
-  try {
-    console.log("Generating image for book:", name)
-    const image64 = await gpt.image(prompt)
-    console.log("Image generated for book:", name)
-    await file.saveImage(image64, name, "book/")
-  } catch (e) {
-    console.log("Failed to generate image for book:", name)
-    console.log(e)
-  }
+  const image64 = await gpt.image(prompt)
+  await file.saveImage(image64, name, "book/")
 }
 
 /**
@@ -65,24 +56,15 @@ const generateImage = async (name, prompt) => {
  * @throws {Error} - If failed to create book.
  */
 const spawnByTitle = async (title, author_id) => {
-  try {
-    const author = await db.Author.findByPk(author_id)
-    const bookGPT = await promptByTitle(title, author.name)
+  const author = await db.Author.findByPk(author_id)
+  const bookGPT = await promptByTitle(title, author.name)
 
-    console.log("Spawning book:", title)
-    const book = await create(bookGPT)
-
-    for (let characterGPT of bookGPT.characters) {
-      await Character.create(characterGPT, book.id)
-    }
-
-    console.log("Book spawned:", title)
-    return book
-  } catch (error) {
-    console.log("Failed to spawn book:", title)
-    console.log(error)
-    throw new Error("Failed to create author with GPT")
+  const book = await create(bookGPT)
+  for (let characterGPT of bookGPT.characters) {
+    await Character.create(characterGPT, book.id)
   }
+
+  return book
 }
 
 /**
@@ -92,25 +74,22 @@ const spawnByTitle = async (title, author_id) => {
  * @throws {Error} - If failed to create book.
  */
 const create = async (data, author_id) => {
-  try {
-    const book = await db.Book.create({
-      title: data.title,
-      year: data.year,
-      ISBN: data.ISBN,
-      resume: data.resume,
-      cover_description: data.cover_description,
-      author_id: data.author_id || author_id,
-    })
+  const book = await db.Book.create({
+    title: data.title,
+    year: data.year,
+    ISBN: data.ISBN,
+    resume: data.resume,
+    cover_description: data.cover_description,
+    author_id: data.author_id || author_id,
+  })
 
-    console.log("Creating book:", book.title)
-    await generateImage(book.slug, book.cover_description)
-    console.log("Book created:", book.title)
-
-    return book
-  } catch (error) {
-    console.log("Failed to create book:", data.title)
-    throw new Error("Failed to create book")
+  if (!book) {
+    throw new Error("Book not created")
   }
+
+  await generateImage(book.slug, book.cover_description)
+
+  return book
 }
 
 /**
@@ -118,27 +97,15 @@ const create = async (data, author_id) => {
  * @return {Promise<Array>} - The list of books.
  * @throws {Error} - If failed to retrieve books.
  */
-const list = async () => {
-  try {
-    console.log("Retrieving books...")
-    const books = await db.Book.findAll({
-      include: [
-        {
-          model: db.Author,
-          as: "author",
-        },
-      ],
-    })
-    console.log(
-      "Books retrieved:",
-      books.map((node) => node.get({ plain: true })),
-    )
-    return books
-  } catch (error) {
-    console.log("Failed to retrieve books")
-    throw new Error("Failed to retrieve books")
-  }
-}
+const list = async () =>
+  await db.Book.findAll({
+    include: [
+      {
+        model: db.Author,
+        as: "author",
+      },
+    ],
+  })
 
 /**
  * Get a book by ID.
@@ -147,26 +114,24 @@ const list = async () => {
  * @throws {Error} - If failed to retrieve book.
  */
 const readById = async (id) => {
-  try {
-    console.log("Retrieving book by ID:", id)
-    const book = await db.Book.findByPk(id, {
-      include: [
-        {
-          model: db.Author,
-          as: "author",
-        },
-        {
-          model: db.Character,
-          as: "characters",
-        },
-      ],
-    })
-    console.log("Book retrieved:", book.get({ plain: true }))
-    return book
-  } catch (error) {
-    console.log("Failed to retrieve book by ID:", id)
-    throw new Error("Failed to retrieve book")
+  const book = await db.Book.findByPk(id, {
+    include: [
+      {
+        model: db.Author,
+        as: "author",
+      },
+      {
+        model: db.Character,
+        as: "characters",
+      },
+    ],
+  })
+
+  if (!book) {
+    throw new Error("Book not found")
   }
+
+  return book
 }
 
 /**
@@ -177,24 +142,19 @@ const readById = async (id) => {
  * @throws {Error} - If failed to update book or book not found.
  */
 const updateById = async (id, updatedData) => {
-  try {
-    console.log("Updating book by ID:", id)
-    const [updatedRowsCount, [updated]] = await db.Book.update(updatedData, {
-      where: { id },
-      returning: true,
-    })
+  const book = await db.Book.findByPk(id)
 
-    if (updatedRowsCount === 0) {
-      console.log("Book not found:", id)
-      throw new Error("Book not found")
-    }
-
-    console.log("Book updated:", updated.get({ plain: true }))
-    return updated
-  } catch (error) {
-    console.log("Failed to update book by ID:", id)
-    throw new Error("Failed to update book")
+  if (!book) {
+    throw new Error("Book not found")
   }
+
+  const updated = await book.update(updatedData)
+
+  if (!updated) {
+    throw new Error("Book not updated")
+  }
+
+  return updated
 }
 
 /**
@@ -204,21 +164,13 @@ const updateById = async (id, updatedData) => {
  * @throws {Error} - If failed to delete book or book not found.
  */
 const deleteById = async (id) => {
-  try {
-    console.log("Deleting book by ID:", id)
-    const deletedRowsCount = await db.Book.destroy({ where: { id } })
+  const deletedRowsCount = await db.Book.destroy({ where: { id } })
 
-    if (deletedRowsCount === 0) {
-      console.log("Book not found:", id)
-      throw new Error("Book not found")
-    }
-
-    console.log("Book deleted:", id)
-    return true
-  } catch (error) {
-    console.log("Failed to delete book by ID:", id)
-    throw new Error("Failed to delete book")
+  if (deletedRowsCount === 0) {
+    throw new Error("Book not found")
   }
+
+  return true
 }
 
 module.exports = {

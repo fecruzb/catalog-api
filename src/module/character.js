@@ -27,9 +27,7 @@ const prompter = () => {
  */
 const generateByTitleAndAuthor = async (book_title, author_name) => {
   const prompt = `About the book ${book_title} from ${author_name} \nPlease provide a list of JSON objects in the following format:\n [${prompter()}]`
-  console.log("Generating character metadata...")
   const response = await gpt.chat(prompt)
-  console.log("Character metadata generated:", response)
   return JSON.parse(response)
 }
 
@@ -40,15 +38,8 @@ const generateByTitleAndAuthor = async (book_title, author_name) => {
  * @returns {Promise<object>} - A promise that resolves to the book's metadata.
  */
 const generateImage = async (name, prompt) => {
-  try {
-    console.log("Generating image for character:", name)
-    const image64 = await gpt.image(prompt)
-    console.log("Image generated for character:", name)
-    await file.saveImage(image64, name, "character/")
-  } catch (e) {
-    console.log("Failed to generate image for character:", name)
-    console.log(e)
-  }
+  const image64 = await gpt.image(prompt)
+  await file.saveImage(image64, name, "character/")
 }
 
 /**
@@ -60,16 +51,13 @@ const generateImage = async (name, prompt) => {
  * @throws {Error} - If failed to create character.
  */
 const createByName = async (name, role, description) => {
-  try {
-    console.log("Creating character:", name)
-    const created = await db.Character.create({ name, role, description })
-    console.log("Character created:", created)
-    return created
-  } catch (error) {
-    console.log("Failed to create character:", name)
-    console.log(error)
-    throw new Error("Failed to create character")
+  const created = await db.Character.create({ name, role, description })
+
+  if (!created) {
+    throw Error("Character not created")
   }
+
+  return created
 }
 
 /**
@@ -79,25 +67,21 @@ const createByName = async (name, role, description) => {
  * @throws {Error} - If failed to create character.
  */
 const create = async (data, book_id) => {
-  try {
-    const character = await db.Character.create({
-      name: data.name,
-      role: data.role,
-      description: data.description,
-      photo_description: data.photo_description,
-      book_id: data.book_id || book_id,
-    })
+  const character = await db.Character.create({
+    name: data.name,
+    role: data.role,
+    description: data.description,
+    photo_description: data.photo_description,
+    book_id: data.book_id || book_id,
+  })
 
-    console.log("Creating character:", character.name)
-    await generateImage(character.slug, character.photo_description)
-    console.log("Character created:", character.name)
-
-    return character
-  } catch (error) {
-    console.log("Failed to create character:", data.name)
-    console.log(error)
-    throw new Error("Failed to create character")
+  if (!character) {
+    throw Error("Character not created")
   }
+
+  await generateImage(character.slug, character.photo_description)
+
+  return character
 }
 
 /**
@@ -105,20 +89,7 @@ const create = async (data, book_id) => {
  * @return {Promise<Array>} - The list of characters.
  * @throws {Error} - If failed to retrieve characters.
  */
-const list = async () => {
-  try {
-    console.log("Retrieving characters...")
-    const characters = await db.Character.findAll()
-    console.log(
-      "Characters retrieved:",
-      characters.map((node) => node.get({ plain: true })),
-    )
-    return characters
-  } catch (error) {
-    console.log("Failed to retrieve characters")
-    throw new Error("Failed to retrieve characters")
-  }
-}
+const list = async () => await db.Character.findAll()
 
 /**
  * Get a character by ID.
@@ -127,15 +98,13 @@ const list = async () => {
  * @throws {Error} - If failed to retrieve character.
  */
 const readById = async (id) => {
-  try {
-    console.log("Retrieving character by ID:", id)
-    const character = await db.Character.findByPk(id)
-    console.log("Character retrieved:", character.get({ plain: true }))
-    return character
-  } catch (error) {
-    console.log("Failed to retrieve character by ID:", id)
-    throw new Error("Failed to retrieve character")
+  const character = await db.Character.findByPk(id)
+
+  if (!character) {
+    throw Error("Character not found")
   }
+
+  return character
 }
 
 /**
@@ -146,24 +115,19 @@ const readById = async (id) => {
  * @throws {Error} - If failed to update character or character not found.
  */
 const updateById = async (id, updatedData) => {
-  try {
-    console.log("Updating character by ID:", id)
-    const [updatedRowsCount, [updated]] = await db.Character.update(updatedData, {
-      where: { id },
-      returning: true,
-    })
+  const character = await db.Character.findByPk(id)
 
-    if (updatedRowsCount === 0) {
-      console.log("Character not found:", id)
-      throw new Error("Character not found")
-    }
-
-    console.log("Character updated:", updated.get({ plain: true }))
-    return updated
-  } catch (error) {
-    console.log("Failed to update character by ID:", id)
-    throw new Error("Failed to update character")
+  if (!character) {
+    throw new Error("Character not found")
   }
+
+  const updated = await character.update(updatedData)
+
+  if (!updated) {
+    throw new Error("Character not updated")
+  }
+
+  return updated
 }
 
 /**
@@ -173,21 +137,13 @@ const updateById = async (id, updatedData) => {
  * @throws {Error} - If failed to delete character or character not found.
  */
 const deleteById = async (id) => {
-  try {
-    console.log("Deleting character by ID:", id)
-    const deletedRowsCount = await db.Character.destroy({ where: { id } })
+  const deletedRowsCount = await db.Character.destroy({ where: { id } })
 
-    if (deletedRowsCount === 0) {
-      console.log("Character not found:", id)
-      throw new Error("Character not found")
-    }
-
-    console.log("Character deleted:", id)
-    return true
-  } catch (error) {
-    console.log("Failed to delete character by ID:", id)
-    throw new Error("Failed to delete character")
+  if (deletedRowsCount === 0) {
+    throw new Error("Character not found")
   }
+
+  return true
 }
 
 module.exports = {

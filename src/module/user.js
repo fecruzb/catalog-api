@@ -10,20 +10,17 @@ const crypt = require("../library/crypt")
  * @throws {Error} - If failed to create user.
  */
 const create = async (data) => {
-  try {
-    console.log("Creating user:", data.name)
-    const created = await db.User.create({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    })
-    console.log("User created:", created.get({ plain: true }))
-    return created
-  } catch (error) {
-    console.log("Failed to create user:", data.name)
-    console.log(error)
-    throw new Error("Failed to create user")
+  const created = await db.User.create({
+    name: data.name,
+    email: data.email,
+    password: data.password,
+  })
+
+  if (!created) {
+    throw Error("User not created")
   }
+
+  return created
 }
 
 /**
@@ -31,20 +28,7 @@ const create = async (data) => {
  * @return {Promise<Array>} - The list of users.
  * @throws {Error} - If failed to retrieve users.
  */
-const list = async () => {
-  try {
-    console.log("Retrieving users...")
-    const users = await db.User.findAll()
-    console.log(
-      "Users retrieved:",
-      users.map((node) => node.get({ plain: true })),
-    )
-    return users
-  } catch (error) {
-    console.log("Failed to retrieve users")
-    throw new Error("Failed to retrieve users")
-  }
-}
+const list = async () => await db.User.findAll()
 
 /**
  * Get a user by ID.
@@ -53,15 +37,13 @@ const list = async () => {
  * @throws {Error} - If failed to retrieve user.
  */
 const readById = async (id) => {
-  try {
-    console.log("Retrieving user by ID:", id)
-    const user = await db.User.findByPk(id)
-    console.log("User retrieved:", user.get({ plain: true }))
-    return user
-  } catch (error) {
-    console.log("Failed to retrieve user by ID:", id)
-    throw new Error("Failed to retrieve user")
+  const user = await db.User.findByPk(id)
+
+  if (!user) {
+    throw Error("User not found")
   }
+
+  return user
 }
 
 /**
@@ -72,24 +54,19 @@ const readById = async (id) => {
  * @throws {Error} - If failed to update user or user not found.
  */
 const updateById = async (id, updatedData) => {
-  try {
-    console.log("Updating user by ID:", id)
-    const [updatedRowsCount, [updated]] = await db.User.update(updatedData, {
-      where: { id },
-      returning: true,
-    })
+  const user = await db.User.findByPk(id)
 
-    if (updatedRowsCount === 0) {
-      console.log("User not found:", id)
-      throw new Error("User not found")
-    }
-
-    console.log("User updated:", updated.get({ plain: true }))
-    return updated
-  } catch (error) {
-    console.log("Failed to update user by ID:", id)
-    throw new Error("Failed to update user")
+  if (!user) {
+    throw new Error("user not found")
   }
+
+  const updated = await user.update(updatedData)
+
+  if (!updated) {
+    throw new Error("User not updated")
+  }
+
+  return updated
 }
 
 /**
@@ -99,21 +76,13 @@ const updateById = async (id, updatedData) => {
  * @throws {Error} - If failed to delete user or user not found.
  */
 const deleteById = async (id) => {
-  try {
-    console.log("Deleting user by ID:", id)
-    const deletedRowsCount = await db.User.destroy({ where: { id } })
+  const deletedRowsCount = await db.User.destroy({ where: { id } })
 
-    if (deletedRowsCount === 0) {
-      console.log("User not found:", id)
-      throw new Error("User not found")
-    }
-
-    console.log("User deleted:", id)
-    return true
-  } catch (error) {
-    console.log("Failed to delete user by ID:", id)
-    throw new Error("Failed to delete user")
+  if (deletedRowsCount === 0) {
+    throw new Error("User not deleted")
   }
+
+  return true
 }
 
 /**
@@ -123,38 +92,26 @@ const deleteById = async (id) => {
  * @return {Promise<Object|null>} - The user object if the email and password match, null otherwise.
  */
 const checkCredentials = async (email, password) => {
-  try {
-    console.log("Checking user credentials...")
-    const user = await db.User.findOne({ where: { email } })
+  const user = await db.User.findOne({ where: { email } })
 
-    if (!user) {
-      console.log("User not found for email:", email)
-      return null
-    }
-
-    const passwordMatch = await crypt.compare(password, user.password)
-
-    if (!passwordMatch) {
-      console.log("Invalid password for user:", email)
-      return null
-    }
-
-    console.log("User credentials verified:", email)
-    return user
-  } catch (error) {
-    console.log("Failed to check user credentials:", email)
-    throw new Error("Failed to check user credentials")
+  if (!user) {
+    throw Error("User not found for email:", email)
   }
+
+  const passwordMatch = await crypt.compare(password, user.password)
+
+  if (!passwordMatch) {
+    throw Error("Invalid password for user: " + email)
+  }
+
+  return user
 }
 
 /**
  * Generate a random authentication token.
  * @returns {string} - The authentication token.
  */
-const generateAuthToken = async () => {
-  const token = await crypt.hash(Math.random().toString())
-  return token
-}
+const generateAuthToken = async () => await crypt.hash(Math.random().toString())
 
 /**
  * Login and generate a token for the provided user.
@@ -163,19 +120,10 @@ const generateAuthToken = async () => {
  * @throws {Error} - If failed to generate token.
  */
 const login = async (user) => {
-  try {
-    console.log("Logging in user:", user.email)
-    const token = await generateAuthToken()
-    const token_exp = new Date(Date.now() + 60 * 60 * 1000)
-    await user.update({ token, token_exp })
-    console.log("Token generated for user:", user.email)
-    return token
-  } catch (error) {
-    console.log("Failed to generate token for user:", user.email)
-    console.log(error)
-    console.log(error)
-    throw new Error("Failed to generate token")
-  }
+  const token = await generateAuthToken()
+  const token_exp = new Date(Date.now() + 60 * 60 * 1000)
+  await user.update({ token, token_exp })
+  return token
 }
 
 /**
@@ -184,33 +132,24 @@ const login = async (user) => {
  * @return {Promise<Object|null>} - The user object if found and token is not expired, null otherwise.
  */
 const readByToken = async (token) => {
-  try {
-    console.log("Retrieving user by token:", token)
+  const user = await db.User.findOne({
+    where: {
+      token,
+    },
+  })
 
-    const user = await db.User.findOne({
-      where: {
-        token,
-      },
-    })
-
-    if (!user) {
-      console.log("User not found for token:", token)
-      throw new Error("User not found for token")
-    }
-
-    // Check if the token is expired
-    const isTokenExpired = new Date() > user.token_exp
-    if (isTokenExpired) {
-      console.log("Token has expired for user:", user.email)
-      throw new Error("Token has expired for user")
-    }
-
-    console.log("User retrieved:", user.get({ plain: true }))
-    return user
-  } catch (error) {
-    console.log("Failed to retrieve user by token:", token)
-    throw new Error("Failed to retrieve user")
+  if (!user) {
+    throw new Error("User not found for token")
   }
+
+  // Check if the token is expired
+  const isTokenExpired = new Date() > user.token_exp
+
+  if (isTokenExpired) {
+    throw new Error("Token has expired for user")
+  }
+
+  return user
 }
 
 module.exports = {

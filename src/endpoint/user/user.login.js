@@ -8,6 +8,6 @@ module.exports = async (req, res) => {
     const token = await User.login(user)
     res.send(200, token)
   } catch (error) {
-    throw new UnauthorizedError(error)
+    throw new UnauthorizedError(error.message)
   }
 }

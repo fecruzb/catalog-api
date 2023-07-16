@@ -2,7 +2,7 @@ const restify = require("restify")
 const corsMiddleware = require("restify-cors-middleware2")
 const path = require("path")
 
-const Authentication = require("./middleware/auth.token")
+const AuthToken = require("./middleware/auth.token")
 
 const AuthorCreate = require("./endpoint/author/author.create")
 const AuthorList = require("./endpoint/author/author.list")
@@ -35,26 +35,28 @@ server.use(restify.plugins.acceptParser(server.acceptable))
 server.use(restify.plugins.queryParser())
 server.use(restify.plugins.bodyParser())
 
-/* static images */
+/* static images (public) */
 server.get("/public/*", restify.plugins.serveStaticFiles(path.join(__dirname, "../public")))
 
-/* endpoint for user login */
+/* endpoint to perform login (public) */
 server.post("/user", UserLogin)
-server.get("/user", Authentication, UserRead)
 
-/* author endpoints */
-server.post("/authors", Authentication, AuthorCreate)
-server.get("/authors", Authentication, AuthorList)
-server.get("/authors/:id", Authentication, AuthorRead)
-server.del("/authors/:id", Authentication, AuthorDelete)
-server.put("/authors/:id", Authentication, AuthorUpdate)
+/* endpoint for retrieve logged user (private) */
+server.get("/user", AuthToken, UserRead)
 
-/* books endpoints */
-server.post("/books", Authentication, BookCreate)
-server.get("/books", Authentication, BookList)
-server.get("/books/:id", Authentication, BookRead)
-server.del("/books/:id", Authentication, BookDelete)
-server.put("/books/:id", Authentication, BookUpdate)
+/* author endpoints (private) */
+server.post("/authors", AuthToken, AuthorCreate)
+server.get("/authors", AuthToken, AuthorList)
+server.get("/authors/:id", AuthToken, AuthorRead)
+server.del("/authors/:id", AuthToken, AuthorDelete)
+server.put("/authors/:id", AuthToken, AuthorUpdate)
+
+/* books endpoints (private) */
+server.post("/books", AuthToken, BookCreate)
+server.get("/books", AuthToken, BookList)
+server.get("/books/:id", AuthToken, BookRead)
+server.del("/books/:id", AuthToken, BookDelete)
+server.put("/books/:id", AuthToken, BookUpdate)
 
 /* start server */
 server.listen(process.env.PORT || 4000, () => {

@@ -5,6 +5,6 @@ module.exports = async (req, res) => {
     const user = req.user
     res.send(200, user)
   } catch (error) {
-    throw new InternalServerError(error)
+    throw new InternalServerError(error.message)
   }
 }

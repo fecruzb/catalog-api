@@ -1,2 +1,6 @@
 node_modules
 .env
+db.sqlite
+public/author/*
+public/book/*
+public/character/*
