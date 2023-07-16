@@ -15,11 +15,13 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^8.0.1",
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "forever": "^4.0.3",
     "openai": "^3.2.1",
     "restify": "^11.1.0",
     "restify-cors-middleware2": "^2.2.1",
+    "restify-errors": "^8.0.2",
     "sequelize": "^6.28.0",
     "sharp": "^0.32.1",
     "sqlite3": "^5.1.4"

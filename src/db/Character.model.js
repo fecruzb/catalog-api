@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize")
+const crypt = require("../library/crypt")
 
 module.exports = (db) => {
   const Character = db.define("character", {
@@ -14,5 +15,13 @@ module.exports = (db) => {
     description: Sequelize.TEXT,
     photo_description: Sequelize.TEXT,
   })
+
+  const updateSlug = async (character) => {
+    character.slug = await crypt.slugify(character.name)
+  }
+
+  Character.beforeCreate(updateSlug)
+  Character.beforeUpdate(updateSlug)
+
   return Character
 }

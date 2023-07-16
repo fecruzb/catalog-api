@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize")
+const crypt = require("../library/crypt")
 
 module.exports = (db) => {
   const Author = db.define("author", {
@@ -13,6 +14,13 @@ module.exports = (db) => {
     biography: Sequelize.TEXT,
     photo_description: Sequelize.TEXT,
   })
+
+  const updateSlug = async (author) => {
+    author.slug = await crypt.slugify(author.name)
+  }
+
+  Author.beforeCreate(updateSlug)
+  Author.beforeUpdate(updateSlug)
 
   return Author
 }

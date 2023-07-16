@@ -1,12 +1,8 @@
 const fs = require("fs")
 const path = require("path")
-const { kebabCase } = require("lodash")
+const crypt = require("./crypt")
 
 const PUBLIC_FOLDER = path.join(__dirname, "../../public")
-
-const slugify = (name) => {
-  return kebabCase(name)
-}
 
 const exists = (dir) => {
   return fs.existsSync(dir)
@@ -17,7 +13,7 @@ const createFolder = (dir) => {
 }
 
 const imageExists = (name, folder = "files") => {
-  const filepath = path.join(PUBLIC_FOLDER, folder, `${slugify(name)}.png`)
+  const filepath = path.join(PUBLIC_FOLDER, folder, `${crypt.slugify(name)}.png`)
   return exists(filepath)
 }
 
@@ -31,7 +27,7 @@ const saveImage = async (content, name, folder = "files") => {
     createFolder(folderpath)
   }
 
-  const filepath = path.join(folderpath, `${slugify(name)}.png`)
+  const filepath = path.join(folderpath, `${crypt.slugify(name)}.png`)
 
   if (!exists(filepath)) {
     await fs.promises.writeFile(filepath, buffer)
@@ -39,7 +35,6 @@ const saveImage = async (content, name, folder = "files") => {
 }
 
 module.exports = {
-  slugify,
   saveImage,
   createFolder,
   exists,

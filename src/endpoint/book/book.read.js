@@ -1,4 +1,5 @@
-const Book = require("../module/book")
+const Book = require("../../module/book")
+const { NotFoundError } = require("restify-errors")
 
 module.exports = async (req, res) => {
   try {
@@ -9,6 +10,6 @@ module.exports = async (req, res) => {
       res.send(book)
     }
   } catch (error) {
-    res.send(500, error)
+    throw new NotFoundError(error.message)
   }
 }

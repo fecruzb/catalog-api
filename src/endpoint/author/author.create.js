@@ -1,4 +1,5 @@
-const Author = require("../module/author")
+const Author = require("../../module/author")
+const { InternalServerError } = require("restify-errors")
 
 module.exports = async (req, res) => {
   const { name } = req.body
@@ -6,7 +7,6 @@ module.exports = async (req, res) => {
     const author = await Author.spawnByName(name)
     res.send(201, author)
   } catch (error) {
-    console.log(error)
-    res.send(500, error)
+    throw new InternalServerError(error.message)
   }
 }
