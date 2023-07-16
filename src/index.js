@@ -2,22 +2,21 @@ const restify = require("restify")
 const corsMiddleware = require("restify-cors-middleware2")
 const path = require("path")
 
-const AuthToken = require("./middleware/auth.token")
+const AuthorCreateEndpoint = require("./endpoint/author/create")
+const AuthorListEndpoint = require("./endpoint/author/list")
+const AuthorReadEndpoint = require("./endpoint/author/read")
+const AuthorDeleteEndpoint = require("./endpoint/author/delete")
+const AuthorUpdateEndpoint = require("./endpoint/author/update")
 
-const AuthorCreate = require("./endpoint/author/author.create")
-const AuthorList = require("./endpoint/author/author.list")
-const AuthorRead = require("./endpoint/author/author.read")
-const AuthorDelete = require("./endpoint/author/author.delete")
-const AuthorUpdate = require("./endpoint/author/author.update")
+const BookCreateEndpoint = require("./endpoint/book/create")
+const BookListEndpoint = require("./endpoint/book/list")
+const BookReadEndpoint = require("./endpoint/book/read")
+const BookDeleteEndpoint = require("./endpoint/book/delete")
+const BookUpdateEndpoint = require("./endpoint/book/update")
 
-const BookCreate = require("./endpoint/book/book.create")
-const BookList = require("./endpoint/book/book.list")
-const BookRead = require("./endpoint/book/book.read")
-const BookDelete = require("./endpoint/book/book.delete")
-const BookUpdate = require("./endpoint/book/book.update")
-
-const UserLogin = require("./endpoint/user/user.login")
-const UserRead = require("./endpoint/user/user.read")
+const UserTokenCreateEndpoint = require("./endpoint/user/token.create")
+const UserTokenReadEndpoint = require("./endpoint/user/token.read")
+const UserTokenValidateMiddleware = require("./middleware/token.validate")
 
 const server = restify.createServer()
 
@@ -39,24 +38,24 @@ server.use(restify.plugins.bodyParser())
 server.get("/public/*", restify.plugins.serveStaticFiles(path.join(__dirname, "../public")))
 
 /* endpoint to perform login (public) */
-server.post("/user", UserLogin)
+server.post("/user", UserTokenCreateEndpoint)
 
 /* endpoint for retrieve logged user (private) */
-server.get("/user", AuthToken, UserRead)
+server.get("/user", UserTokenValidateMiddleware, UserTokenReadEndpoint)
 
 /* author endpoints (private) */
-server.post("/authors", AuthToken, AuthorCreate)
-server.get("/authors", AuthToken, AuthorList)
-server.get("/authors/:id", AuthToken, AuthorRead)
-server.del("/authors/:id", AuthToken, AuthorDelete)
-server.put("/authors/:id", AuthToken, AuthorUpdate)
+server.post("/authors", UserTokenValidateMiddleware, AuthorCreateEndpoint)
+server.get("/authors", UserTokenValidateMiddleware, AuthorListEndpoint)
+server.get("/authors/:id", UserTokenValidateMiddleware, AuthorReadEndpoint)
+server.del("/authors/:id", UserTokenValidateMiddleware, AuthorDeleteEndpoint)
+server.put("/authors/:id", UserTokenValidateMiddleware, AuthorUpdateEndpoint)
 
 /* books endpoints (private) */
-server.post("/books", AuthToken, BookCreate)
-server.get("/books", AuthToken, BookList)
-server.get("/books/:id", AuthToken, BookRead)
-server.del("/books/:id", AuthToken, BookDelete)
-server.put("/books/:id", AuthToken, BookUpdate)
+server.post("/books", UserTokenValidateMiddleware, BookCreateEndpoint)
+server.get("/books", UserTokenValidateMiddleware, BookListEndpoint)
+server.get("/books/:id", UserTokenValidateMiddleware, BookReadEndpoint)
+server.del("/books/:id", UserTokenValidateMiddleware, BookDeleteEndpoint)
+server.put("/books/:id", UserTokenValidateMiddleware, BookUpdateEndpoint)
 
 /* start server */
 server.listen(process.env.PORT || 4000, () => {
